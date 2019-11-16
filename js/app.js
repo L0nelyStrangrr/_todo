@@ -3,10 +3,20 @@ const todoList = {
     deletedTodos : []
 };
 
+const createId = () => {
+    const symbolsStr = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    let id = '';
 
-const addTodo = (id, title, description) => {
+    for (let i = 0; i < 10; i++) {
+        let index = Math.floor(Math.random() * symbolsStr.length);
+        id +=symbolsStr[index];
+    }
+    return id;
+}
+
+const addTodo = (title, description) => {
     const newTodo = {
-        id,
+        id : createId(),
         title,
         description
     }
