@@ -26,3 +26,21 @@ const addTodo = (title, description) => {
     return todoList.currentTodos;
 }
 
+const deleteTodo = id => {
+    let removedTodo = todoList.currentTodos.find(todo => todo.id === id);
+    todoList.deletedTodos.push(removedTodo);
+    removedTodoIndex = todoList.currentTodos.indexOf(removedTodo);
+    todoList.currentTodos.splice(removedTodoIndex, 1);
+
+    console.log(todoList.currentTodos);
+    console.log(todoList.deletedTodos);
+}
+
+const editTodo = (id, title, description) => {
+    let editingTodo = todoList.currentTodos.find(todo => todo.id === id);
+    editingTodo.title = title;
+    editingTodo.description = description;
+
+    return todoList.currentTodos;
+}
+
