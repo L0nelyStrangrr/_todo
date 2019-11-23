@@ -15,6 +15,8 @@ const createId = () => {
 }
 
 const addTodo = (title, description) => {
+    if (!title) return console.log('Не было передано название задачи');
+    if (!description) return console.log('Не было передано описание задачи');
     const newTodo = {
         id : createId(),
         title,
@@ -27,20 +29,24 @@ const addTodo = (title, description) => {
 }
 
 const deleteTodo = id => {
-    let removedTodo = todoList.currentTodos.find(todo => todo.id === id);
+    if (!id) return console.log('Не было передано ID редактируемой задачи');
+    const removedTodo = todoList.currentTodos.some(todo => todo.id == id);
+    if (!removedTodo) return console.log('Такой задачи не существует')
     todoList.deletedTodos.push(removedTodo);
-    removedTodoIndex = todoList.currentTodos.indexOf(removedTodo);
-    todoList.currentTodos.splice(removedTodoIndex, 1);
-
+    todoList.currentTodos = todoList.currentTodos.filter(todo => todo.id !== id)
     console.log(todoList.currentTodos);
     console.log(todoList.deletedTodos);
 }
 
 const editTodo = (id, title, description) => {
-    let editingTodo = todoList.currentTodos.find(todo => todo.id === id);
-    editingTodo.title = title;
-    editingTodo.description = description;
-
+    if (!id) return console.log('Не было передано ID редактируемой задачи');
+    const checkTodo = todoList.currentTodos.some(todo => todo.id == id);
+    if (!checkTodo) return console.log('Такой задачи не существует')
+    if (!title) return console.log('Не было передано название задачи');
+    if (!description) return console.log('Не было передано описание задачи');
+    todoList.currentTodos = todoList.currentTodos.filter(todo=> todo.id !== id)
+    const editedTodo = {id, title, description};
+    todoList.currentTodos.push(editedTodo);
     return todoList.currentTodos;
 }
 
